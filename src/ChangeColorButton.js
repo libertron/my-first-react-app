@@ -11,7 +11,7 @@ class ChangeColorButton extends Component{
 
     render(){
         return(
-            <button onClick={this.handleClick}>Change the Color</button>
+            <button onClick={this.handleClick}>I don't like the color {this.props.currentColor}</button>
         );
     };
 }

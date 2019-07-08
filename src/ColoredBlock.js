@@ -22,7 +22,7 @@ class ColoredBlock extends Component{
     render(){
         return(
             <div style={{width:"200px",height:"200px",backgroundColor: this.state.backgroundColor}}>
-                <ChangeColorButton onClick={this.changeColor}/>
+                <ChangeColorButton onClick={this.changeColor} currentColor={this.state.backgroundColor}/>
             </div>
         );
     };
