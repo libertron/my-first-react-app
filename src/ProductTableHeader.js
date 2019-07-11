@@ -6,8 +6,8 @@ class ProductTableHeader extends Component{
         return(
             <th>
                 {this.props.column}
-                <button className="ProductTableHeader-current">&#x25B2;</button>
-                <button>&#x25BC;</button>
+                <button className={this.props.currentSort.direction==='asc'?"ProductTableHeader-current":""}>&#x25B2;</button>
+                <button className={this.props.currentSort.direction==='desc'?"ProductTableHeader-current":""}>&#x25BC;</button>
             </th>
         );
     };

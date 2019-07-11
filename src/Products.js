@@ -13,11 +13,27 @@ var PRODUCTS = {
   };
 
 class Products extends Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            filterText:'',
+            inStockOnly:false,
+            products:PRODUCTS
+        }
+    }
     render(){
         return(
             <div>
-                <Filters />
-                <ProductTable products={PRODUCTS} />
+                <Filters
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}
+                />
+                <ProductTable 
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}
+                    products={this.state.products}
+                />
                 <ProductForm />
             </div>
         );
