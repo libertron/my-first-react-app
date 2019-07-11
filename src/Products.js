@@ -14,6 +14,19 @@ var PRODUCTS = {
 
 class Products extends Component{
 
+    filterHandler(filterInput){
+        this.setState(filterInput);
+    }
+
+    saveProduct(product){
+        product.id=new Date.getTime();
+        this.setState((prevState)=>{
+            let products=prevState.products;
+            products[product.id]=product;
+            return {products};
+        });
+    }
+
     constructor(props){
         super(props);
         this.state={
@@ -21,6 +34,8 @@ class Products extends Component{
             inStockOnly:false,
             products:PRODUCTS
         }
+        this.filterHandler=this.filterHandler.bind(this);
+        this.saveProduct=this.saveProduct.bind(this);
     }
     render(){
         return(
@@ -28,13 +43,16 @@ class Products extends Component{
                 <Filters
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
+                    onFilter={this.filterHandler}
                 />
                 <ProductTable 
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
                     products={this.state.products}
                 />
-                <ProductForm />
+                <ProductForm 
+                    onSave={this.saveProduct}
+                />
             </div>
         );
     };
