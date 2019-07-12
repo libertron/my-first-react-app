@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 
+const RESET_VALUES = {id: '', category: '', price: '', stocked: false, name: ''};
+
 class ProductForm extends Component{
+
     handleSave(e){
+        e.preventDefault();
         this.props.onSave(this.state.product);
+        console.log(this.state.product);
         this.setState({
             product:Object.assign({},RESET_VALUES)
         });
-        e.preventDefault();
     }
 
     handleChange(e){
@@ -25,7 +29,7 @@ class ProductForm extends Component{
         this.handleSave=this.handleSave.bind(this);
         this.handleChange=this.handleChange.bind(this);
         this.state={
-            product:''
+            product:Object.assign({},RESET_VALUES)
         }
     }
 
@@ -56,7 +60,7 @@ class ProductForm extends Component{
                 </p>
                 <p>
                 <label>
-                    <input type="checkbox" name="stocked" onChange={this.handleChange} value={this.state.product.stocked}/>
+                    <input type="checkbox" name="stocked" onChange={this.handleChange} checked={this.state.product.stocked}/>
                     In stock?
                 </label>
                 </p>

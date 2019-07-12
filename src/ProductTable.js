@@ -13,6 +13,12 @@ class ProductTable extends Component{
                 direction:'asc'
             }
         };
+        this.handleDestroy=this.handleDestroy.bind(this);
+        this.handleStort=this.handleStort.bind(this);
+    }
+
+    handleDestroy(id){
+        this.props.onDestroy(id);
     }
 
     sortByKeyAndOrder(objectA, objectB) {
@@ -34,13 +40,23 @@ class ProductTable extends Component{
         let productsAsArray = Object.keys(this.props.products).map((pid) => this.props.products[pid]);
         return productsAsArray.sort(this.sortByKeyAndOrder);
     }
+
+    handleStort(column,direction){
+        this.setState({
+            sort:{
+                column:column,
+                direction:direction
+            }
+        });
+    }
+
     render(){
         var rows = [];
         this.sortProducts().forEach((product) => {
             if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
                 return;
             }
-            rows.push(<ProductRow product={product} key={product.id}/>);
+            rows.push(<ProductRow product={product} key={product.id} onDestroy={this.handleDestroy}/>);
         });
 
         return(
@@ -50,10 +66,12 @@ class ProductTable extends Component{
                         <ProductTableHeader 
                             column="name"
                             currentSort={this.state.sort} 
+                            onSort={this.handleStort}
                         />
                         <ProductTableHeader 
                             column="price"
                             currentSort={this.state.sort}
+                            onSort={this.handleStort}
                         />
                     </tr>
                 </thead>

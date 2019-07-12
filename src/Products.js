@@ -19,7 +19,7 @@ class Products extends Component{
     }
 
     saveProduct(product){
-        product.id=new Date.getTime();
+        product.id=new Date().getTime();
         this.setState((prevState)=>{
             let products=prevState.products;
             products[product.id]=product;
@@ -36,7 +36,17 @@ class Products extends Component{
         }
         this.filterHandler=this.filterHandler.bind(this);
         this.saveProduct=this.saveProduct.bind(this);
+        this.handleDestroy=this.handleDestroy.bind(this);
     }
+
+    handleDestroy(productId){
+        this.setState((prevState)=>{
+            let products=prevState.products;
+            delete products[productId];
+            return {products};
+        });
+    }
+
     render(){
         return(
             <div>
@@ -49,6 +59,7 @@ class Products extends Component{
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
                     products={this.state.products}
+                    onDestroy={this.handleDestroy}
                 />
                 <ProductForm 
                     onSave={this.saveProduct}
